@@ -19,47 +19,26 @@ impl Timer {
     /// Start the timer.
     pub fn start(&mut self) {
         self.time = 0.0;
-        self.start = Some(now());
+        self.start = Some(0.0);
     }
 
     /// Pause the timer.
     pub fn pause(&mut self) {
         if let Some(start) = self.start {
-            self.time += now() - start;
+            self.time -= start;
         }
         self.start = None;
     }
 
     /// Resume the timer.
     pub fn resume(&mut self) {
-        self.start = Some(now());
+        self.start = Some(0.0);
     }
 
     /// The measured time between the last `.start()` and `.pause()` calls.
     pub fn time(&self) -> f64 {
         self.time
     }
-}
-
-#[cfg(not(any(any(target_arch = "wasm32", target_arch = "asmjs"), target_arch = "asmjs")))]
-fn now() -> f64 {
-    use time;
-    time::precise_time_s()
-}
-
-#[cfg(
-    any(
-        any(any(target_arch = "wasm32", target_arch = "asmjs"), target_arch = "asmjs"),
-        target_arch = "asmjs"
-    )
-)]
-#[allow(unused_results)] // Needed because the js macro triggers it.
-fn now() -> f64 {
-    use stdweb::unstable::TryInto;
-
-    // https://developer.mozilla.org/en-US/docs/Web/API/Performance/now
-    let v = js! { return performance.now() / 1000.0; };
-    v.try_into().unwrap()
 }
 
 impl Display for Timer {

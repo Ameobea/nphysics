@@ -108,20 +108,6 @@ extern crate ncollide3d as ncollide;
 extern crate num_traits as num;
 extern crate slab;
 
-/*
- * The two following crates are pulled-in for
- * measuring time.
- */
-#[cfg(not(any(target_arch = "wasm32", target_arch = "asmjs")))]
-extern crate time;
-
-#[cfg(any(target_arch = "wasm32", target_arch = "asmjs"))]
-#[macro_use]
-extern crate stdweb;
-
-//#[cfg(test)]
-//extern crate test;
-
 pub mod algebra;
 pub mod counters;
 pub mod detection;
