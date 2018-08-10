@@ -25,7 +25,7 @@ alga       = "0.7"
 nalgebra   = "0.16"
 approx     = "0.3"
 downcast   = "0.9"
-ncollide2d = "0.17"
+ncollide2d = { git = "https://github.com/Ameobea/ncollide.git", rev = "collision-world-public" }
 
 [target.'cfg(not(target_arch = "wasm32"))'.dependencies]
 time = "0.1"
